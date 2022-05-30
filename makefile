@@ -9,4 +9,7 @@ all: $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 clean:
-	rm -f $(NAME) $(OBJ)
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)

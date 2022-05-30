@@ -483,7 +483,7 @@
             "parentId": "page",
             "childIndex": 17,
             "point": [
-              -7.82,
+              -6.82,
               -221.43
             ],
             "rotation": 0,
@@ -493,7 +493,7 @@
                 "id": "start",
                 "index": 0,
                 "point": [
-                  275.53,
+                  273.53,
                   0
                 ],
                 "canBind": true
@@ -503,7 +503,7 @@
                 "index": 1,
                 "point": [
                   0,
-                  29.18
+                  29.08
                 ],
                 "canBind": true,
                 "bindingId": "d723043a-02c5-4795-3c1f-1cef2f226d0c"
@@ -512,8 +512,8 @@
                 "id": "bend",
                 "index": 2,
                 "point": [
-                  137.77,
-                  14.59
+                  136.76,
+                  14.54
                 ]
               }
             },
@@ -997,7 +997,7 @@
             "childIndex": 33,
             "point": [
               -887.95,
-              -624.59
+              -623.59
             ],
             "rotation": 0,
             "text": "if(id %2 ==0)\n  usleep(100);\n \nwhile(1)\nlock_fork\nlock_fork\neat\nunclock_fork\nunlock_fork\nsleep",
@@ -1007,6 +1007,28 @@
               "isFilled": false,
               "dash": "draw",
               "scale": 1.4245438007123439,
+              "font": "script",
+              "textAlign": "middle"
+            }
+          },
+          "6bd096ad-d4d4-4def-0586-b4ed2985124d": {
+            "id": "6bd096ad-d4d4-4def-0586-b4ed2985124d",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 34,
+            "point": [
+              839.6282523361795,
+              23.683969996633778
+            ],
+            "rotation": 0,
+            "text": "hmmmmmmm",
+            "style": {
+              "color": "black",
+              "size": "small",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
               "font": "script",
               "textAlign": "middle"
             }
