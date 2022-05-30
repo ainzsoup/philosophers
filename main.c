@@ -6,7 +6,7 @@
 /*   By: sgamraou <sgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:48:55 by sgamraou          #+#    #+#             */
-/*   Updated: 2022/05/30 17:52:58 by sgamraou         ###   ########.fr       */
+/*   Updated: 2022/05/30 19:11:28 by sgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	init_philos(t_data *data, pthread_mutex_t *myforks)
 		data->philos[i].id = i;
 		data->philos[i].number_of_philosophers = data->number_of_philosophers;
 		data->philos[i].last_eat = data->timu;
+		data->philos[i].n_eat = 0;
 		i++;
 	}
 }
@@ -141,13 +142,69 @@ void*	philosopher(void *arg)
 	return (NULL);
 }
 
-int	killPhilophers(t_data *data)
+int	everyoneAte(t_data *data)
+{
+	int	j;
+	int	i;
+	int count;
+
+	i = 0;
+	if (data->quit == 1)
+		return (0);
+	while (i < data->number_of_philosophers)
+	{
+		j = 0;
+		count = 0;
+		while(j < data->number_of_philosophers)
+		{
+			if (data->philos[j].n_eat >= data->number_of_turns)
+				count++;
+			j++;
+		}
+		if (count == data->number_of_philosophers)
+		{
+			pthread_mutex_lock(&data->mutex);
+			data->quit = 1;
+			printf("\033[0;32mEveryone ate at least %d times :)\n\033[0m", data->number_of_turns);
+			return (0);
+		}
+		i = (i + 1) % data->number_of_philosophers;
+	}
+	return (1);
+}
+
+void	didEveryoneEat(t_data *data)
+{
+	int	count;
+	int	j;
+	
+	count = 0;
+	j = 0;
+	while(j < data->number_of_philosophers)
+	{
+		if (data->philos[j].n_eat >= data->number_of_turns)
+			count++;
+		j++;
+	}
+	if (count == data->number_of_philosophers)
+	{
+		pthread_mutex_lock(&data->mutex);
+		data->quit = 1;
+		printf("\033[0;32mEveryone ate at least %d times :)\n\033[0m", data->number_of_turns);
+	}
+}
+
+int	killPhilophers(t_data *data, int ac)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->number_of_philosophers)
 	{
+		if (ac == 6)
+			didEveryoneEat(data);
+		if (data->quit == 1)
+			return (0);
 		if (getCurrentTime() - data->philos[i].last_eat >= data->time_to_die)
 		{
 			pthread_mutex_lock(&data->mutex);
@@ -182,6 +239,6 @@ int main(int ac, char **av)
 			}
 		data->id++;
 	}
-	while(killPhilophers(data));
+	while(killPhilophers(data, ac));
 	return (0);
 }
