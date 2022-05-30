@@ -6,7 +6,7 @@
 /*   By: sgamraou <sgamraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:48:55 by sgamraou          #+#    #+#             */
-/*   Updated: 2022/05/30 17:30:20 by sgamraou         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:52:58 by sgamraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void*	philosopher(void *arg)
 		pthread_mutex_unlock(&philo->myfork[(index + 1) % philo->number_of_philosophers]);
 		print_it("is sleeping", philo);
 		mysleep(philo->time_to_sleep);
-		print_it("is thinking", philo);
+		print_it("\033[0;33mis thinking\033[0m", philo);
 	}
 	return (NULL);
 }
@@ -150,8 +150,9 @@ int	killPhilophers(t_data *data)
 	{
 		if (getCurrentTime() - data->philos[i].last_eat >= data->time_to_die)
 		{
+			pthread_mutex_lock(&data->mutex);
 			data->quit = 1;
-			printf("\033[0;31m%lld : philo %d died\n\033[0m", getCurrentTime() - data->philos[i].timu , data->philos[i].id + 1);
+			printf("\033[0;31m%lld : philo %d died 💀\n\033[0m", getCurrentTime() - data->philos[i].timu , data->philos[i].id + 1);
 			return 0;
 		}
 		i = (i + 1) % data->number_of_philosophers;
